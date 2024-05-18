@@ -1,21 +1,35 @@
 <%= form_with model: article do |form| %>
-  <div>
+  <div style="margin-bottom: 15px;">
     <%= form.label :title %><br>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
     <% article.errors.full_messages_for(:title).each do |message| %>
-      <div><%= message %></div>
+      <div style="color: red;"><%= message %></div>
     <% end %>
   </div>
 
-  <div>
+  <div style="margin-bottom: 15px;">
     <%= form.label :body %><br>
-    <%= form.text_area :body %><br>
+    <%= form.text_area :body, class: "form-control" %><br>
     <% article.errors.full_messages_for(:body).each do |message| %>
-      <div><%= message %></div>
+      <div style="color: red;"><%= message %></div>
     <% end %>
   </div>
 
+  <div style="margin-bottom: 15px;">
+    <%= form.label :status %><br>
+    <%= form.select :status, Visible::VALID_STATUSES, { selected: article.status || 'public' }, class: "form-select" %>
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <%= form.label :image, class: "form-label" %><br>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
+
   <div>
-    <%= form.submit %>
+    <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
